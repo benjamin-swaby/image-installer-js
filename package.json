@@ -13,6 +13,7 @@
     "downloads": "^0.1.0",
     "fs": "0.0.1-security",
     "image-downloader": "^4.0.1",
+    "prompt": "^1.0.0",
     "puppeteer": "^4.0.1",
     "request": "^2.88.2"
   }
