@@ -11,7 +11,7 @@
 `i dont know tbh consult above and adapt`
 
 ## install
-`git clone https://github.com/benjamin-swaby/google-images-installer-js.git`
+`git clone https://github.com/benjamin-swaby/image-installer-js.git`
 `cd google-images-installer-js && bash reset.bash`
 
 
