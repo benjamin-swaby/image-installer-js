@@ -1,10 +1,11 @@
-
-
+const puppeteer = require('puppeteer');
+const download = require('image-downloader');
 
 // generate a url with the search term
 function url(searchTerm) {
-	let base1 = "https://www.google.com/search?q=";
-	let base2 = "&safe=strict&source=lnms&tbm=isch&sa=X&ved=2ahUKEwishr3P6JrqAhVwTxUIHRsjAPwQ_AUoAXoECBAQAw&biw=952&bih=942";
+	//https://duckduckgo.com/?q=car&t=hf&iax=images&ia=images
+	let base1 = "https://duckduckgo.com/?q=";
+	let base2 = "&t=hf&iax=images&ia=images";
 	let final = base1 + searchTerm + base2;
 	return final;
 }
@@ -13,12 +14,26 @@ function url(searchTerm) {
 function generate(amount) {
 	let xstrings = [];
 	for(let i = 0; i < amount; i++){
-		let xstring = '//*[@id="islrg"]/div[1]/div['+i+']/a[1]/div[1]/img';
+		let xstring = '//*[@id="zci-images"]/div/div[2]/div/div['+i+']/div[1]/span/img';
 		xstrings[i] = xstring;
 	}
 	return xstrings;
 }	
 
+function install_image(src, i){
+	
+ 
+	options = {
+	url: src,
+	dest: 'images/' + i +'.jpg'      // will be saved to /path/to/dest/photo.jpg
+	}
+ 
+	download.image(options)
+	.then(({ filename }) => {
+		console.log('Saved to', filename)  // saved to /path/to/dest/photo.jpg
+	})
+	.catch((err) => console.error(err))
+}
 
 //main funtion that gets the images from the url using the xpaths generated
 async function scrapeProduct(url,xstrings) {
@@ -34,8 +49,10 @@ async function scrapeProduct(url,xstrings) {
 		try {
 			const src = await el.getProperty('src');
 			const srcTxt = await src.jsonValue();
-			console.log(srcTxt);
+			//console.log(srcTxt);
 			srcs[i] = srcTxt;
+			install_image(srcTxt,i);
+			
 
 
 		}catch (err){
@@ -54,9 +71,8 @@ async function scrapeProduct(url,xstrings) {
 
 
 function main(){
-	const puppeteer = require('puppeteer');
-	var amount = 21;
-	var search = "car";
+	var amount = 500;
+	var search = "dog";
 	// stops if feild is bad
 
 	url_s = url(search);
@@ -67,4 +83,7 @@ function main(){
 
 
 
+main();
 
+//*[@id="zci-images"]/div/div[2]/div/div[1]/div[1]/span/img
+//*[@id="zci-images"]/div/div[2]/div/div[2]/div[1]/span/img
