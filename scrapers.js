@@ -1,15 +1,15 @@
-const puppeteer = require('puppeteer');
-request = require('request');
 
 
+
+// generate a url with the search term
 function url(searchTerm) {
 	let base1 = "https://www.google.com/search?q=";
 	let base2 = "&safe=strict&source=lnms&tbm=isch&sa=X&ved=2ahUKEwishr3P6JrqAhVwTxUIHRsjAPwQ_AUoAXoECBAQAw&biw=952&bih=942";
 	let final = base1 + searchTerm + base2;
-	//console.log( { final } );
 	return final;
 }
 
+// generates xpaths for the images on google images
 function generate(amount) {
 	let xstrings = [];
 	for(let i = 0; i < amount; i++){
@@ -20,6 +20,7 @@ function generate(amount) {
 }	
 
 
+//main funtion that gets the images from the url using the xpaths generated
 async function scrapeProduct(url,xstrings) {
 	const browser = await puppeteer.launch();
 	const page = await browser.newPage();
@@ -33,7 +34,7 @@ async function scrapeProduct(url,xstrings) {
 		try {
 			const src = await el.getProperty('src');
 			const srcTxt = await src.jsonValue();
-			console.log(srcTxt+',');
+			console.log(srcTxt);
 			srcs[i] = srcTxt;
 
 
@@ -51,10 +52,19 @@ async function scrapeProduct(url,xstrings) {
 
 	
 
-let s_url = url("dog");
-let xstrings = generate(20);
 
-let srcs = scrapeProduct(s_url,xstrings)
+function main(){
+	const puppeteer = require('puppeteer');
+	var amount = 21;
+	var search = "car";
+	// stops if feild is bad
+
+	url_s = url(search);
+	xstrings = generate(amount);
+
+	scrapeProduct(url_s, xstrings);
+}
+
 
 
 
