@@ -12,11 +12,11 @@
 
 ## install
 `git clone https://github.com/benjamin-swaby/image-installer-js.git`
-`cd google-images-installer-js && bash reset.bash`
+`cd image-installer-js && bash reset.bash`
 
 
 ## usage
-1. `cd google-images-installer-js`
+1. `cd image-installer-js`
 2. `node main.js [search term] [amount]`
 
 
