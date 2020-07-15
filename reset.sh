@@ -1,2 +1,1 @@
-sudo rm -R images
-mkdir images
+rm -R ./images/*
